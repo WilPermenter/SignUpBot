@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import time
 
+
 def get_email():
     driver = webdriver.Edge('C:/Users/Aurum/Downloads/MicrosoftWebDriver')
     driver.get("https://www.minuteinbox.com/")
@@ -17,7 +18,8 @@ def get_email():
         element_delete = driver.find_element_by_class_name('btn-delete')
         element_delete.click()
     except:
-        element_delete = driver.find_element_by_class_name('.gradient .delete-tab')
+        element_delete = driver.find_element_by_class_name(
+            '.gradient .delete-tab')
         element_delete.click()
     else:
         assert "No results found." not in driver.page_source
@@ -25,16 +27,19 @@ def get_email():
     driver.close()
     return email
 
+
 def get_name(email):
     x = email.split('.')
     y = x[1].split('@')
-    z = [x[0],y[0]]
+    z = [x[0], y[0]]
     print(z)
     return z
 
-def signup(name,email):
+
+def signup(name, email):
     driver = webdriver.Edge('C:/Users/Aurum/Downloads/MicrosoftWebDriver')
-    driver.get("https://www.ownyourprep.com/?ref=phikappataumsu&sba=andrew.butler@kaplan.com")
+    driver.get(
+        "https://www.ownyourprep.com/?ref=phikappataumsu&sba=andrew.butler@kaplan.com")
     assert "Test" in driver.title
     element_check = driver.find_element_by_class_name('unchecked')
     assert "No results found." not in driver.page_source
@@ -43,11 +48,11 @@ def signup(name,email):
     driver.find_element_by_tag_name('body').send_keys(Keys.END)
 
     element_signup = driver.find_element_by_class_name("btn signup")
-    print (element_signup.text)
-    #Error
+    print(element_signup.text)
+    # Error
     time.sleep(2)
 
-    #driver.find_element_by_class_name('signup').click()
+    # driver.find_element_by_class_name('signup').click()
 
     assert "No results found." not in driver.page_source
     element_fn = driver.find_element_by_id('input_6_31')
@@ -73,14 +78,16 @@ def signup(name,email):
     driver.close()
     return email
 
+
 def main():
 
     x = int(input('How many accounts do you want: '))
 
-    for i in range(0,x):
+    for i in range(0, x):
         email = get_email()
         name = get_name(email)
-        signup(name,email)
+        signup(name, email)
     done = input('Done.... Enter to close.....')
+
 
 main()
