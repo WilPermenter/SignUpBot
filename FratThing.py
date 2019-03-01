@@ -41,24 +41,25 @@ def signup(name,email):
     time.sleep(1)
     elements_signup = driver.find_elements_by_class_name("btn signup")
     elements_signup[1].click()
-#Error
-    input = driver.find_element_by_id("field_6_32")
-    input.send_keys('hello')
 
-    element_ln = driver.find_elements_by_tag_name('form')
 
-    element_ln[4].send_keys(name[1])
-    element_email = driver.find_element_by_id('input_6_12')
+    WebDriverWait(driver, 40).until(
+        EC.presence_of_element_located((By.ID, "input_6_31")))
 
-    element_email.send_keys(email)
+    driver.find_element_by_id("input_6_31").send_keys(name[1])
+    driver.find_element_by_id("input_6_32").send_keys(name[0])
+    driver.find_element_by_id("input_6_12").send_keys(email)
+
 
     element_drop = driver.find_element_by_id('input_6_20')
     element_drop.click()
     element_drop.send_keys(Keys.ARROW_DOWN)
-    element_next = driver.find_element_by_class_name('.btn .signup')
+    element_drop.send_keys(Keys.ENTER)
+
+    element_next = driver.find_element_by_id('gform_submit_button_6')
     element_next.click()
-    element_delete = driver.find_element_by_class_name('btn-delete')
-    element_delete.click()
+
+    time.sleep(2)
     driver.close()
     return email
 
@@ -73,6 +74,8 @@ def main():
 
         name = get_name(email)
         signup(name,email)
+
+
     done = input('Done.... Enter to close.....')
 
 main()
